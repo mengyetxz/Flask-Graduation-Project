@@ -54,7 +54,7 @@ class InvoiceModel(db.Model):
 
     @classmethod
     def find_all(cls):
-        # return type : list
+        # End with .all() method will return a list otherwise return a query object !!!
         return cls.query.all()
 
     @classmethod
