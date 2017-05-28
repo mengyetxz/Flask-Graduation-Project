@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}main page{% endblock %}
+
+{% block content %}
+
+    <div class="jumbotron">
+        <div class="container main">
+            <button name="Click">Click</button>
+            <h3>hello, world!</h3>
+        </div>
+    </div>
+
+
+{% endblock %}
+
+{% block script %}
+    {{ super() }}
+    <script src="{{ url_for("static", filename="js/main.js") }}"></script>
+
+{% endblock %}

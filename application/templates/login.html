@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %} Login {% endblock %}
+
+{% block content %}
+{{ super() }}
+<div class="jumbotron">
+    <div class="container">
+        <div class="col-md-4">
+            {{ wtf.quick_form(form) }}
+            <br>
+    </div>
+</div>
+</div>
+{% endblock %}

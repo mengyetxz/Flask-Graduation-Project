@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %} Uploaded File {% endblock %}
+
+{% block content %}
+{{ super() }}
+    <div class="container">
+        <div class="col-md-3">
+            {{ wtf.quick_form(form) }}
+        </div>
+        <div class="col-md-9">
+            已上传的文件列表：
+            <!-- for upload.js append uploaded filename -->
+            <ul id="uploaded-csv"></ul>
+        </div>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+    <script src="{{ url_for('static', filename="js/upload.js") }}"></script>
+{% endblock %}
