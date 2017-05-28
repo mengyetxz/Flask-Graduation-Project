@@ -47,15 +47,20 @@ class RecordsMerge(Resource):
         args = cls.parser.parse_args()
         return str(records_merge(args['filename']))
 -- 3 end --
+
+2017/05/28
+在 class TestRecordsMerge(Resource): 中测试了 @marshal_with(resource_fields) 装饰器，发现的缺点：
+每个 endpoint 需要依赖 resource_fields 返回 response, 返回类型必须为 map 类型，所以不能返回 str
+目前未发现使用该装饰器比重写 JSONEncoder.default() 更有好处
 """
 
-from flask import jsonify
-from flask_restful import Resource, reqparse, fields, marshal_with
+# from flask import jsonify
+from flask_restful import Resource, reqparse, marshal_with, fields, abort
 from csv_reader import CSVReader
 from invoice_record import InvoiceRecord
 
-
-resource_fields = {
+# _resource_fields for <class TestRecordsMerge> using @marshal_with(resource_fields)
+_resource_fields = {
     "linkedAccountId": fields.String,
     "billingDate": fields.DateTime,  # db.Column(db.Date)
     "invoiceDate": fields.DateTime,  # db.Column(db.Date)
@@ -65,11 +70,11 @@ resource_fields = {
     "credits": fields.Float,
     "taxAmount": fields.Float,
     "totalCost": fields.Float,
-    'uri': fields.Url('api.records_merge')
+    'uri': fields.Url('api.test_records_merge')  # 如何使多个 endpoint 共用同一个 resource_fields ???
 }
 
 
-class RecordsMerge(Resource):
+class TestRecordsMerge(Resource):
     """
     Rest API for testing function records_merge(csvin):
     """
@@ -77,18 +82,22 @@ class RecordsMerge(Resource):
         self.parser = reqparse.RequestParser()
         self.parser.add_argument('filename', type=str, required=True, help='filename cant be blank')
         self.parser.add_argument('columns')
-        super(RecordsMerge, self).__init__()
+        super(TestRecordsMerge, self).__init__()
 
-    @marshal_with(resource_fields)
+    @marshal_with(_resource_fields)
     def get(self):
         """
         for testing function records_merge(filename)
         :return:
         """
         args = self.parser.parse_args()
-        merged = records_merge(args['filename'])
+        try:
+            merged = records_merge(args['filename'])
+        except IOError:
+            abort(400)  # 文件不存在
         # return jsonify([obj.to_dict() for obj in merged])
-        return merged
+        else:
+            return merged
 
 
 def records_merge(filename):

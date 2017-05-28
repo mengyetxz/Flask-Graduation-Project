@@ -6,10 +6,10 @@
 import os
 from flask import current_app, jsonify
 from flask_restful import Resource, reqparse
-from .. import csvfiles
+from application import csvfiles  # 这里不应该从 application 中导入 ... 待修改
 
 
-class FileManager(Resource):
+class CSVFilesManager(Resource):
     @staticmethod
     def get():
         """

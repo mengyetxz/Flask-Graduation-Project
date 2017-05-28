@@ -6,7 +6,7 @@
 from flask import jsonify
 from flask_restful import Resource, reqparse
 from invoice_records import records_merge
-from ..models import InvoiceModel
+from application.models import InvoiceModel
 
 
 class InvoiceImport(Resource):

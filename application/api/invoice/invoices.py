@@ -5,7 +5,7 @@
 
 from flask import jsonify
 from flask_restful import Resource, reqparse
-from ..models import InvoiceModel
+from application.models import InvoiceModel
 
 
 class Invoices(Resource):
