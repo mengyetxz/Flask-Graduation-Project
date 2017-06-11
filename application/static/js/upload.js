@@ -2,8 +2,9 @@
  * Created by mengy on 2017/5/25.
  */
 $(document).ready(function () {
+    var url_csv = '/api/invoices/csv'; 
     $.get({
-        url: '/api/file_manager',
+        url: url_csv,
         success: function (data) {
             var filename_list = '';
             /* {filename: url} saved in data */
@@ -22,17 +23,21 @@ $(document).ready(function () {
         },
         complete: function () {
             $('.btn-del').on('click', function () {
+                var deleted = this;
                 var confirmed = confirm('确认删除？');
                 if (confirmed){
                     $.ajax({
                         method: 'DELETE',
-                        url: '/api/file_manager',
+                        url: url_csv,
                         data: {'filename': $(this).data('filename')},
                         success: function () {
-                            alert('已删除！');
+                            $(deleted).parent().remove();
+                            alert('已删除!');
+                        },
+                        error: function () {
+                            alert('删除失败，请重试！');
                         }
                     });
-                    $(this).parent().remove();
                 }
             });
         }

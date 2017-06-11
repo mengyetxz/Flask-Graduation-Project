@@ -7,11 +7,22 @@ import os
 from flask import render_template, request, redirect, url_for, session, current_app, jsonify, flash
 from .forms import CSVForm, csvfiles
 from . import invoice_bp
+from ..models import InvoiceModel
 
 
 @invoice_bp.route('/')
 def index():
     return render_template("invoice/index.html")
+
+
+@invoice_bp.route('/bill')
+def bill():
+    objs = InvoiceModel.query
+    linked_account_id_options = {o.to_dict().get('linkedAccountId') for o in objs}
+    bill_date_options = {o.to_dict().get('billingDate').strftime('%Y/%m') for o in objs}
+    return render_template("invoice/billing.html",
+                           bill_date_options=bill_date_options,
+                           linked_account_id_options=linked_account_id_options)
 
 
 @invoice_bp.route('/upload/csv', methods=['GET', 'POST'])

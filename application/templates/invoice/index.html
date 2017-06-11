@@ -5,15 +5,12 @@
 {% block content %}
 {{ super() }}
 <div class="container">
-    <h1>Invoice</h1>
+    <h1>Invoice Index</h1>
 </div>
-<div class="container">
-    <!-- for invoice.js append users -->
-    <ul id="users"></ul>
-</div>
+
 {% endblock %}
 
 {% block scripts %}
     {{ super() }}
-    <script src="{{ url_for("static", filename="js/invoice.js") }}"></script>
+
 {% endblock %}
