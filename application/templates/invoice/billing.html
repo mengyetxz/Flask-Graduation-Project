@@ -5,27 +5,30 @@
 {% block content %}
 {{ super() }}
 <div class="container">
-    <h1>账单</h1>
+    <h3>账单</h3>
 </div>
 <div class="container">
-    <div class="col-md-2">
+    <div class="col-md-3">
+        <span>账户ID：</span>
         <select id="linkedAccountIdSelect" title="select" class="select">
         {% for options in linked_account_id_options %}
             <option value={{ options }}>{{ options }}</option>
         {% endfor %}
         </select>
     </div>
-    <div class="col-md-1">
+    <div class="col-md-2">
+        <span>日期：</span>
         <select id="billDateSelect" title="select" class="select">
         {% for options in bill_date_options %}
             <option value={{ options }}>{{ options }}</option>
         {% endfor %}
         </select>
     </div>
-    <div class="col-md-1">
+    <div class="col-md-2">
+        <span>经常性费用：</span>
         <select id="isRecurrentSelect" title="select" class="select">
-            <option value=0>False</option>
-            <option value=1>True</option>
+            <option value=0>True</option>
+            <option value=1>False</option>
         </select>
     </div>
 </div>

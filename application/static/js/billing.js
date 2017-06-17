@@ -61,18 +61,33 @@ $(document).ready(function () {
             xAxis: {
                 name: 'productCode',
                 type: 'category',
+                boundaryGap: true,
                 data: billChartData[0]
             },
             yAxis: {
                 name: 'totalCost',
                 type: 'value',
+                axisLabel: {
+                    formatter: '{value} ￥'
+                },
                 data: []
             },
             series: [{
                 name: '金额（元）',
                 type: 'bar',
-                data: billChartData[1]
-            }]
+                data: billChartData[1],
+                markLine: {
+                    data: [
+                        {type: 'average', name: '平均花费'}
+                    ]
+                }
+            }],
+            color: [
+                '#d48265', '#91c7ae', '#749f83',
+                '#ca8622', '#bda29a', '#6e7074',
+                '#546570', '#c4ccd3', '#c23531',
+                '#2f4554', '#61a0a8'
+            ]
         };
         billChart.setOption(option);
     }
