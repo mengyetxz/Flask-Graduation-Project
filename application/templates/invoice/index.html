@@ -2,15 +2,83 @@
 
 {% block title %}invoice index page{% endblock %}
 
-{% block content %}
+{% block styles %}
 {{ super() }}
-<div class="container">
-    <h1>Invoice Index</h1>
-</div>
-
+<link href="{{ url_for('static', filename='css/sidebar/font-awesome.min.css') }}" rel="stylesheet">
+<link href="{{ url_for('static', filename='css/sidebar/style.css') }}" rel="stylesheet">
 {% endblock %}
 
-{% block scripts %}
-    {{ super() }}
+{% block content %}
+{# 添加侧边栏 #}
+{% block sidebar %}
+    <div id="sidebar">
+        <ul id="accordion" class="accordion">
+                <!-- 第一个 fa-paint-brush -->
+                <li>
+                    <div class="link">
+                        <i class="fa fa-paint-brush"></i>
+                        Invoice
+                        <i class="fa fa-chevron-down"></i>
+                    </div>
+                    <ul class="submenu">
+                        <li><a href="{{ url_for('invoice.bill') }}">bill chart</a></li>
+                        <li><a href="{{ url_for('invoice.upload_file') }}">upload_file</a></li>
+                        <li><a href="#">3333</a></li>
+                    </ul>
+                </li><!-- end -->
+                <!-- 第二个 fa-code -->
+                <li>
+                    <div class="link">
+                        <i class="fa fa-code"></i>
+                        一级分类
+                        <i class="fa fa-chevron-down"></i>
+                    </div>
+                    <ul class="submenu">
+                        <li><a href="#">1111</a></li>
+                        <li><a href="#">2222</a></li>
+                        <li><a href="#">3333</a></li>
+                    </ul>
+                </li><!-- end -->
+                <!-- 第三个 fa-mobile -->
+                <li>
+                    <div class="link">
+                        <i class="fa fa-mobile"></i>
+                        一级分类
+                        <i class="fa fa-chevron-down"></i>
+                    </div>
+                    <ul class="submenu">
+                        <li><a href="#">1111</a></li>
+                        <li><a href="#">2222</a></li>
+                        <li><a href="#">3333</a></li>
+                    </ul>
+                </li><!-- end -->
+                <!-- 第四个 fa-globe -->
+                <li>
+                    <div class="link">
+                        <i class="fa fa-globe"></i>
+                        一级分类
+                        <i class="fa fa-chevron-down"></i>
+                    </div>
+                    <ul class="submenu">
+                        <li><a href="#">1111</a></li>
+                        <li><a href="#">2222</a></li>
+                        <li><a href="#">3333</a></li>
+                    </ul>
+                </li><!-- end -->
+            </ul>
+    </div>
+{% endblock %}<!-- end sidebar -->
+    <div id="content">
+        {{ super() }}<!-- super content block -->
+        <div id="index_content" class="container">
+        {% block index_content %}
+            <h1>Invoice Index</h1>
+        {% endblock %}
+        </div>
+    </div>
+{% endblock %}<!-- end content -->
 
+{% block scripts %}
+{{ super() }}
+<script src="{{ url_for('static', filename="js/sidebar.js") }}"></script>
 {% endblock %}

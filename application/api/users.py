@@ -73,6 +73,7 @@ class UserModify(Resource):
         parser.add_argument('email')
         parser.add_argument('username')
         args = parser.parse_args()
+        print args['email'], args['username']
         if not (args['email'] or args['username']):
             abort(400, message="Email or username required")
         me = UserModel.find_by_email_or_username(args['email'], args['username'])

@@ -119,4 +119,4 @@ class UserModel(UserMixin, db.Model):
 # typeof user_id is unicode
 @login_manager.user_loader
 def load_user(user_id):
-    return UserModel.get(int(user_id))
+    return UserModel.query.get(int(user_id))

@@ -11,9 +11,9 @@ from ..models import UserModel
 
 
 class RegisterForm(FlaskForm):
-    email = StringField(u'邮箱', validators=[DataRequired(), Length(1, 64), Email()])
+    email = StringField(u'邮箱', validators=[DataRequired(), Length(1, 64), Email(u'邮箱格式不正确')])
     username = StringField(u'用户名', validators=[
-        DataRequired(), Length(1, 64), Regexp('^[A-Za-z][A-Za-z0-9_.]*$', 0,'Usernames must have only letters, ''numbers, dots or underscores')])
+        DataRequired(), Length(1, 64), Regexp('^[A-Za-z][A-Za-z0-9_.]*$', 0, 'Usernames must have only letters, ''numbers, dots or underscores')])
     password = PasswordField(u'密码', validators=[
         DataRequired(), EqualTo('password2', message=u'两次输入密码的不一致')])
     password2 = PasswordField(u'确认密码', validators=[DataRequired()])
